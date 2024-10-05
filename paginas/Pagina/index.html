@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Susy</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/menu.css">
+</head>
+<body>
+    <div class="hero">
+        <div class="navbar">
+            <img src="imagenes/logo.png" class="logo">
+            <button type="button" onclick="window.location.href='login.html'">Sign up</button>
+        </div>
+
+        <div class="content">
+            <small>Welcome to our</small>
+            <h1>World's <br> Creative Studio</h1>
+            <button type="button">Take a tour</button>
+        </div>
+
+        <div class="side-bar">
+            <img src="imagenes/menu.png" class="menu">
+            <div class="social-links">
+                <img src="imagenes/fb.png">
+                <img src="imagenes/ig.png">
+                <img src="imagenes/tw.png">
+            </div>
+            <div class="useful-links">
+                <img src="imagenes/share.png">
+                <img src="imagenes/info.png">
+            </div>
+        </div>
+
+        <div class="bubbles">
+            <img src="imagenes/bubble.png">
+            <img src="imagenes/bubble.png">
+            <img src="imagenes/bubble.png">
+            <img src="imagenes/bubble.png">
+            <img src="imagenes/bubble.png">
+            <img src="imagenes/bubble.png">
+            <img src="imagenes/bubble.png">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+        // Inicializar Supabase
+        const { createClient } = supabase;
+        const supabaseUrl = 'https://pfkrmmqdyfeaubgwhrrw.supabase.co';  // Reemplaza con tu URL de Supabase
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBma3JtbXFkeWZlYXViZ3docnJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcxODk0MTksImV4cCI6MjA0Mjc2NTQxOX0.qkZQI2aD23ctu5A4aF8a4BO7Q_sPAF-WYfZ0BZm2rK4';  // Reemplaza con tu clave anon
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        // Verificar si hay un usuario autenticado
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            if (!user) {
+                // Si no hay usuario, redirigir al formulario de inicio de sesión
+                window.location.href = "login.html"; // Cambia esto a la ruta de tu formulario de inicio de sesión
+            }
+        });
+
+        // Función de cierre de sesión
+        async function logout() {
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+                console.error('Error al cerrar sesión:', error.message);
+            } else {
+                window.location.href = "login.html";
+            }
+        }
+    </script>
+</body>
+</html>
